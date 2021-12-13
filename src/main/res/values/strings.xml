@@ -13,4 +13,5 @@
 
     <string name="header_text_start">///</string>
     <string name="hint">Type here</string>
+    <string name="result">Result...</string>
 </resources>
