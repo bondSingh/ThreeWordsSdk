@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/padding_max"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+    <Material.EditText
+        android:id="@+id/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/padding_max"
+        android:paddingEnd="@dimen/padding_max"
+        android:paddingTop="@dimen/padding_max"
+        android:hint="@string/hint" />
+
+    <ScrollView
+        android:id="@+id/suggestion_list_c"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:visibility="visible">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/suggestion_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/row_item"
+            />
+    </ScrollView>
+</LinearLayout>
