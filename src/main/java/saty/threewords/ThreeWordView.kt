@@ -21,11 +21,10 @@ import com.what3words.javawrapper.response.Suggestion
 import com.what3words.javawrapper.response.SuggestionWithCoordinates
 
 
-class ThreeWordView: LinearLayout, CustomAdapter.OnSuggestionItemSelectedListner {
+class ThreeWordView : LinearLayout, CustomAdapter.OnSuggestionItemSelectedListner {
     private val TAG: String = "ThreeWordView"
     private var what3WordResultListener: OnWhat3WordResultListener? = null
     lateinit var newView: View
-    lateinit var editText: EditText
     lateinit var searchText: String
     private lateinit var customAdapter: CustomAdapter
     private lateinit var what3words: What3WordsV3
@@ -37,43 +36,20 @@ class ThreeWordView: LinearLayout, CustomAdapter.OnSuggestionItemSelectedListner
             attrs,
             R.styleable.ColorOptionsView, 0, 0
         )
-        val titleText = a.getString(R.styleable.ColorOptionsView_titleText)
-        val holoBlueLight: Int = resources.getColor(android.R.color.holo_blue_light)
-        val valueColor = a.getColor(
-            R.styleable.ColorOptionsView_valueColor,
-            holoBlueLight
-        )
+
         a.recycle()
 
         orientation = HORIZONTAL
-        //gravity = Gravity.CENTER_VERTICAL
 
         val inflater = context
             .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         newView = inflater.inflate(R.layout.three_word_view, this, true)
-        //minimumHeight = newView.height
-
-        /*val title = getChildAt(0) as TextView
-        title.text = titleText
-
-        mValue = getChildAt(1)
-        mValue.setBackgroundColor(valueColor)
-
-        mImage = getChildAt(2) as ImageView*/
         setupView(newView)
         setupThreeWord()
     }
 
     constructor(context: Context) : super(context) {
         ThreeWordView(context, null)
-    }
-
-    fun setValueColor(color: Int) {
-        //mValue.setBackgroundColor(color)
-    }
-
-    fun setImageVisible(visible: Boolean) {
-        //mImage.setVisibility(if (visible) VISIBLE else GONE)
     }
 
     fun setOnWhat3WordResultListener(listener: OnWhat3WordResultListener) {
@@ -98,7 +74,6 @@ class ThreeWordView: LinearLayout, CustomAdapter.OnSuggestionItemSelectedListner
                     return
                 }
                 suggestionsListView.visibility = View.VISIBLE
-                //homeViewModel.setEditText(text)
                 fetchSuggestions(searchText)
             }
 
@@ -122,12 +97,9 @@ class ThreeWordView: LinearLayout, CustomAdapter.OnSuggestionItemSelectedListner
     }
 
     private fun fetchSuggestions(text: String) {
-        // Get suggestions
-
-        //customAdapter.setData(createDummyData(text.length))
 
         autosuggestHelper.options(autosuggestOptions).update(
-            text.toString(),
+            text,
             onSuccessListener = { suggestionResults ->
                 var dataList: ArrayList<Suggestion> = ArrayList()
                 suggestionResults.forEach { suggestion ->
@@ -152,14 +124,20 @@ class ThreeWordView: LinearLayout, CustomAdapter.OnSuggestionItemSelectedListner
             searchText,
             data,
             onSuccessListener = { result ->
-                //Toast.makeText(this,"suggestion selected from what3words, ${w3wWithCoordinates.words}, ${w3wWithCoordinates.coordinates.lat} ${w3wWithCoordinates.coordinates.lng}", Toast.LENGTH_LONG).show()
-                Log.d("saty", "" + "suggestion selected from what3words, ${result.words}, ${result.coordinates.lat} ${result.coordinates.lng}")
+                Log.d(
+                    "saty",
+                    "" + "suggestion selected from what3words, ${result.words}, ${result.coordinates.lat} ${result.coordinates.lng}"
+                )
                 what3WordResultListener?.onWhat3WordResult(WhatThreeWordsResult(data, result))
-                //return@selectedWithCoordinates
             },
             onFailureListener = {
                 Log.e("MainActivity", it.message)
-                what3WordResultListener?.onWhat3WordResult(WhatThreeWordsResult(data, SuggestionWithCoordinates(data)))
+                what3WordResultListener?.onWhat3WordResult(
+                    WhatThreeWordsResult(
+                        data,
+                        SuggestionWithCoordinates(data)
+                    )
+                )
             }
         )
     }

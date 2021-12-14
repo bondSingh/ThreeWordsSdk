@@ -9,10 +9,6 @@ import java.util.regex.Pattern
 public class Utils {
 
     companion object {
-        /*fun start(context: Context) {
-            context.startActivity(Intent(context, CameraActivity::class.java))
-        }*/
-
         fun isValidSearchText(data: String) : Boolean {
             var regex =  "^/*[^0-9`~!@#$%^&*()+\\-_=\\]\\[{\\}\\\\|'<,.>?/\";:£§º©®\\s]{1,}[.｡。･・︒។։။۔።।][^0-9`~!@#$%^&*()+\\-_=\\]\\[{\\}\\\\|'<,.>?/\";:£§º©®\\s]{1,}[.｡。･・︒។։။۔።।][^0-9`~!@#$%^&*()+\\-_=\\]\\[{\\}\\\\|'<,.>?/\";:£§º©®\\s]{1,}$"
 
