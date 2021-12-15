@@ -38,3 +38,6 @@ In order to use this SDK, please follow the following steps:
                     "Lng:${data.coordinates.lng}"\
     }
     
+    [![](https://jitpack.io/v/bondSingh/ThreeWordsSdk.svg)](https://jitpack.io/#bondSingh/ThreeWordsSdk)
+
+    
